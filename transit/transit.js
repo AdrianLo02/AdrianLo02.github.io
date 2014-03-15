@@ -93,9 +93,9 @@ function renderMap() {
 	map.panTo(landmark)
 	myMarker = new google.maps.Marker({
 		position: landmark,
-		title: "You are here"
+		title: "You are here",
 	});
-	marker.setMap(map);
+	myMarker.setMap(map);
 	rodeo = new XMLHttpRequest();
 	rodeo.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
 	rodeo.onreadystatechange = dataReady_rodeo;

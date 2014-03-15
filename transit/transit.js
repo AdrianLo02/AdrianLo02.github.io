@@ -71,9 +71,11 @@ forkList = [];
 var infowindow = new google.maps.InfoWindow();
 var minDist = 999999;
 var closest;
+/*
 Number.prototype.toRad = function() {
    return this * Math.PI / 180;
 }
+*/
 
 function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -128,6 +130,7 @@ function dataReady_rodeo() {
 	}
 	else if(rodeo.readyState == 4 && rodeo.status == 500) {
 		myContent += "500 Internal Server Error";
+		console.log("so much fail");
 	}
 }
 
@@ -216,12 +219,19 @@ function drawFork(color) {
 function haversine(stationLat, stationLng) {
 	var R = 6371;
 	var x1 = myLat-stationLat;
-	var dLat = x1.toRad();  
+//	var dLat = x1.toRad();
+	var dLat = toRad(x1);
 	var x2 = myLng-stationLng;
-	var dLon = x2.toRad();  
-	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(stationLat.toRad()) * Math.cos(myLat.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+//	var dLon = x2.toRad(); 
+	var dLon = toRad(x2); 
+//	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(stationLat.toRad()) * Math.cos(myLat.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(toRad(stationLat)) * Math.cos(toRad(myLat)) * Math.sin(dLon/2) * Math.sin(dLon/2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	var d = R * c; 
 	var miles = d/1.609344;
 	return miles;
+}
+
+function toRad(x) {
+   return x * Math.PI / 180;
 }

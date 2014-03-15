@@ -108,7 +108,7 @@ function makeMyMarker() {
 	myContent = "You are here."
 	infowindow.setContent(myContent);
 	infowindow.open(map, myMarker);
-	google.maps.event.addListener(marker, 'click', function() {
+	google.maps.event.addListener(myMarker, 'click', function() {
 		infowindow.open(map, this);
 	});
 }

@@ -124,7 +124,7 @@ function dataReady_rodeo() {
 		makeMyMarker();
 	}
 	else if(rodeo.readyState == 4 && rodeo.status == 500) {
-		myContent += " 500 Internal Server Error";
+		myContent += "<br>500 Internal Server Error";
 		makeMyMarker();
 	}
 }

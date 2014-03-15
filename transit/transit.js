@@ -103,7 +103,6 @@ function renderMap() {
 	rodeo.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
 	rodeo.onreadystatechange = dataReady_rodeo;
 	rodeo.send(null);
-	makeMyMarker();
 }
 
 function makeMyMarker() {
@@ -126,11 +125,12 @@ function dataReady_rodeo() {
 		var color = rodeoData.line;
 		renderMarkers(color);
 		drawLine(color);
-		myContent += "<br>The closest " + color + " line station to you is " + closest + ", which is approximately " + minDist + " miles away.";
+		myContent += "<br>The closest " + color + " line station to you is " + closest + ", which is approximately " + minDist.toFixed(2) + " miles away.";
+		makeMyMarker();
 	}
 	else if(rodeo.readyState == 4 && rodeo.status == 500) {
-		myContent += "500 Internal Server Error";
-		console.log("so much fail");
+		myContent += " 500 Internal Server Error";
+		makeMyMarker();
 	}
 }
 

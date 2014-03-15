@@ -109,6 +109,7 @@ function makeMyMarker() {
 	infowindow.setContent(myContent);
 	infowindow.open(map, myMarker);
 	google.maps.event.addListener(myMarker, 'click', function() {
+		infowindow.setContent(myContent);
 		infowindow.open(map, this);
 	});
 }

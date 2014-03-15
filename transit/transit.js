@@ -58,7 +58,7 @@ var tIcon = 'resources/t_marker.png';
 var myLat = 0;
 var myLng = 0;
 var myMarker;
-var myContent;
+var myContent = "You are here.";
 var landmark = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
 	zoom:13,
@@ -69,6 +69,11 @@ var map;
 coordsList = [];
 forkList = [];
 var infowindow = new google.maps.InfoWindow();
+var minDist = 999999;
+var closest;
+Number.prototype.toRad = function() {
+   return this * Math.PI / 180;
+}
 
 function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -92,11 +97,11 @@ function getMyLocation()
 function renderMap() {
 	landmark = new google.maps.LatLng(myLat, myLng);
 	map.panTo(landmark)
-	makeMyMarker();
 	rodeo = new XMLHttpRequest();
 	rodeo.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
 	rodeo.onreadystatechange = dataReady_rodeo;
 	rodeo.send(null);
+	makeMyMarker();
 }
 
 function makeMyMarker() {
@@ -105,7 +110,6 @@ function makeMyMarker() {
 		title: "You are here",
 	});
 	myMarker.setMap(map);
-	myContent = "You are here."
 	infowindow.setContent(myContent);
 	infowindow.open(map, myMarker);
 	google.maps.event.addListener(myMarker, 'click', function() {
@@ -120,8 +124,10 @@ function dataReady_rodeo() {
 		var color = rodeoData.line;
 		renderMarkers(color);
 		drawLine(color);
+		myContent += "<br>The closest " + color + " line station to you is " + closest + ", which is approximately " + minDist + " miles away.";
 	}
 	else if(rodeo.readyState == 4 && rodeo.status == 500) {
+		myContent += "500 Internal Server Error";
 	}
 }
 
@@ -167,6 +173,11 @@ function createMarker(i, color) {
 				content += "<td>" + mins + ":" + secs + "</td>";
 			}
 		}
+		var dist = haversine(stationList[i].lat, stationList[i].lng);
+		if(dist < minDist) {
+			minDist = dist;
+			closest = stationList[i].station;
+		}
 	}
 
 	//Dealing with red line split for polyline
@@ -200,4 +211,17 @@ function drawFork(color) {
 	    strokeWeight: 3
   	});
 	line.setMap(map);
+}
+
+function haversine(stationLat, stationLng) {
+	var R = 6371;
+	var x1 = myLat-stationLat;
+	var dLat = x1.toRad();  
+	var x2 = myLng-stationLng;
+	var dLon = x2.toRad();  
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c; 
+	var miles = d/1.609344;
+	return miles;
 }

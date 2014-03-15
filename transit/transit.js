@@ -58,6 +58,7 @@ var tIcon = 'resources/t_marker.png';
 var myLat = 0;
 var myLng = 0;
 var myMarker;
+var myContent;
 var landmark = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
 	zoom:13,
@@ -91,15 +92,25 @@ function getMyLocation()
 function renderMap() {
 	landmark = new google.maps.LatLng(myLat, myLng);
 	map.panTo(landmark)
+	makeMyMarker();
+	rodeo = new XMLHttpRequest();
+	rodeo.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
+	rodeo.onreadystatechange = dataReady_rodeo;
+	rodeo.send(null);
+}
+
+function makeMyMarker() {
 	myMarker = new google.maps.Marker({
 		position: landmark,
 		title: "You are here",
 	});
 	myMarker.setMap(map);
-	rodeo = new XMLHttpRequest();
-	rodeo.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
-	rodeo.onreadystatechange = dataReady_rodeo;
-	rodeo.send(null);
+	myContent = "You are here."
+	infowindow.setContent(myContent);
+	infowindow.open(map, myMarker);
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map, this);
+	});
 }
 
 function dataReady_rodeo() {

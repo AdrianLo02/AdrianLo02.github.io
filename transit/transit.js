@@ -77,19 +77,18 @@ function initialize() {
 	getMyLocation();
 }
 
-function getMyLocation()
-	{
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				myLat = position.coords.latitude;
-				myLng = position.coords.longitude;
-				renderMap();
-			});
-		}
-		else {
-			alert("Could not find your location.");
-		}
+function getMyLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			myLat = position.coords.latitude;
+			myLng = position.coords.longitude;
+			renderMap();
+		});
 	}
+	else {
+		alert("Could not find your location.");
+	}
+}
 
 function renderMap() {
 	landmark = new google.maps.LatLng(myLat, myLng);
@@ -128,7 +127,6 @@ function dataReady_rodeo() {
 		makeMyMarker();
 	}
 }
-
 
 function renderMarkers(color) {
 	for(i = 0; i < stationList.length; i++) {

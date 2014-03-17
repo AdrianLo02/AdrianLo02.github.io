@@ -1,0 +1,133 @@
+html {
+	background-color: #EDEDED;
+	min-width: 992px;
+	height: 100%;
+	overflow: scroll;
+}
+
+body {
+	background-color: #FFFFFF;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 992px;
+	min-height: 100%;
+	box-shadow: 0 0 15px #707070;
+}
+
+h1 {
+	position: relative;
+	margin: 0;
+	padding-top: 6px;
+	top: 10px;
+	left: 65px;
+	z-index: 0;
+	font-weight: 400;
+}
+
+#nav {
+	position: relative;
+	top: 20px;
+	right: 50px;
+	float: right;
+	padding: 0;
+	list-style: none;
+	z-index: 3;
+}
+
+#nav li {
+	float: left;
+}
+
+#nav li a {
+	padding: .5em 1em;
+	text-decoration: none;
+	border-left: 1px solid #ccc;
+}
+
+#nav li a:hover {
+	background-color: #B5DAFF;
+}
+
+#nav li a:link, a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+#end {
+	border-right: 1px solid #ccc;
+}
+
+
+#current_page {
+	background-color: #DBEDFF;
+}
+
+#end_current {
+	background-color: #DBEDFF;
+	border-right: 1px solid #ccc;
+}
+
+hr {
+	margin-top: 30px;
+}
+
+.leftpic {
+	float: left;
+	margin-top: 16px;
+	margin-left: 50px;
+}
+
+.portimg {
+	border: 1px solid #ccc;
+}
+
+#profphoto{
+	-moz-border-radius: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 0;
+    border-color: #FFFFFF;
+}
+
+h2, h3, p {
+	margin-left: 375px;
+	margin-right: 50px;
+}
+
+p{
+	padding-bottom: 8px;
+	z-index: 2;
+}
+
+h3 {
+	margin-top: 10px;
+}
+
+.project {
+	overflow: hidden;
+	padding-bottom: 50px;
+}
+
+.ital {
+	font-style: italic;
+}
+
+#intro {
+	margin-bottom: 40px;
+}
+
+h4 {
+	position: relative;
+	margin-top: 10px;
+	text-align: center;
+	font-weight: 300;
+}
+
+#container {
+	padding-bottom: 40px;
+	overflow: hidden;
+}

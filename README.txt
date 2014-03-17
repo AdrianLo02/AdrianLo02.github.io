@@ -12,4 +12,3 @@
 I have not collaborated with anyone for this assignment
 
 3.
-This project has taken an estimated 5 hours to complete
